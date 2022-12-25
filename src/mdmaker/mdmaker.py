@@ -1,7 +1,7 @@
 from .helpers import add_words
 
 
-class Generator:
+class MdMaker:
     def __init__(self, filename: str, mode: str) -> None:
         self.filename = filename
         self.mode = mode
