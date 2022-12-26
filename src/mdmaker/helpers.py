@@ -5,8 +5,8 @@ def add_words(text: str, is_paragraph: bool, is_line: bool,
     star_num = star_num + 2 if is_bold else star_num
     stars = '*' * star_num
     if is_paragraph:
-        return f'{"&nbsp;" * spaces}{stars}{text.strip()}{stars}'
+        return '{0}{1}{2}{1}'.format('&nbsp;' * spaces, stars, text.strip())
     elif is_line:
-        return f'{"&nbsp;" * spaces}{stars}{text.strip()}{stars}  '
+        return '{0}{1}{2}{1}  '.format('&nbsp;' * spaces, stars, text.strip())
     else:
-        return f'{" " * spaces}{stars}{text.strip()}{stars}'
+        return '{0}{1}{2}{1}'.format(' ' * spaces, stars, text.strip())
