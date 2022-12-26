@@ -1,4 +1,4 @@
-# Markdown Generator
+# Markdown Maker and Generator
 
 This is **not** yet another library to generate HTML from Markdown.
 
