@@ -11,7 +11,8 @@ def maker() -> MdMaker:
 
 @pytest.fixture
 def generator(tmp_path: PosixPath) -> Generator:
-    d = tmp_path/'sub'
+    d = tmp_path / 'mdmaker'
     d.mkdir()
-    p = d/'MdMaker.md'
+    p = d / 'MdMaker.md'
+    print(p)
     return Generator(p, 'w')
