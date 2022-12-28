@@ -33,3 +33,13 @@ def test_bold_italic_paragraph(maker: MdMaker) -> None:
     content = '***This is not yet another library to generate HTML from Markdown.***'
     paragraph = maker.paragraph(CONTENT, is_bold=True, is_italic=True)
     assert content == paragraph
+
+
+def test_multi_paragraphs(maker: MdMaker) -> None:
+    content = '''This is not yet another library to generate HTML from Markdown.
+
+This is a pure python library to generate Markdown.'''
+    paragraphs = ['This is not yet another library to generate HTML from Markdown.',
+                  'This is a pure python library to generate Markdown.']
+    paragraph = maker.multi_paragraphs(paragraphs)
+    assert content == paragraph

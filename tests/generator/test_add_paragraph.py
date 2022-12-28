@@ -15,7 +15,7 @@ def test_add_paragraph_begin(generator: Generator) -> None:
     assert content == file_content
 
 
-def test_add_paragraph_middle(generator: Generator) -> None:
+def test_add_paragraph(generator: Generator) -> None:
     content = '''# Markdown Maker and Generator
 
 This is not yet another library to generate HTML from Markdown.
@@ -74,6 +74,20 @@ def test_add_bold_italic_paragraph(generator: Generator) -> None:
 '''
     generator.add_header(1, HEADER)
     generator.add_paragraph(CONTENT, is_bold=True, is_italic=True)
+    generator.save_file()
+    with open(generator.filename, 'r') as f:
+        file_content = f.read()
+    assert content == file_content
+
+
+def test_add_multi_paragraphs(generator: Generator) -> None:
+    content = '''This is not yet another library to generate HTML from Markdown.
+
+This is a pure python library to generate Markdown.
+'''
+    paragraphs = ['This is not yet another library to generate HTML from Markdown.',
+                  'This is a pure python library to generate Markdown.']
+    generator.add_multi_paragraphs(paragraphs)
     generator.save_file()
     with open(generator.filename, 'r') as f:
         file_content = f.read()

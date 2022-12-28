@@ -63,3 +63,15 @@ def test_add_bold_italic_line(generator: Generator) -> None:
     with open(generator.filename, 'r') as f:
         file_content = f.read()
     assert content == file_content
+
+
+def test_add_multi_lines(generator: Generator) -> None:
+    content = '''This is a pure python library to generate Markdown.  
+It aims to generate Markdown files in a modular way with pure python.  
+'''
+    lines = [LINE1_CONTENT, LINE2_CONTENT]
+    generator.add_multi_lines(lines)
+    generator.save_file()
+    with open(generator.filename, 'r') as f:
+        file_content = f.read()
+    assert content == file_content
