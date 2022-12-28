@@ -51,3 +51,13 @@ class Generator:
         blockquotes = self.mdmaker.multi_blockquotes(quotes, is_splitted)
         self.content += '{}{}\n'.format(
             '\n' if self.content else '', blockquotes)
+
+    def add_lists(self, lists: dict) -> None:
+        list_content = self.mdmaker.lists(lists)
+        self.content += '{}{}\n'.format(
+            '\n' if self.content else '', list_content)
+
+    def add_lists_in_blockquotes(self, lists: dict, is_splitted: bool = False) -> None:
+        block_content = self.mdmaker.lists_in_blockquotes(lists, is_splitted)
+        self.content += '{}{}\n'.format(
+            '\n' if self.content else '', block_content)

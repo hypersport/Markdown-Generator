@@ -17,7 +17,7 @@ class MdMaker:
              is_italic: bool = False, indents: int = 0) -> str:
         return add_words(line, False, True, is_bold, is_italic, indents)
 
-    def multi_paragraphs(self, paragraphs: list, is_bold: bool = False,
+    def multi_paragraphs(self, paragraphs: list[str], is_bold: bool = False,
                          is_italic: bool = False, indents: int = 0) -> str:
         content = ''
         for paragraph in paragraphs:
@@ -26,7 +26,7 @@ class MdMaker:
             content += '\n'
         return content.strip('\n')
 
-    def multi_lines(self, lines: list, is_bold: bool = False,
+    def multi_lines(self, lines: list[str], is_bold: bool = False,
                     is_italic: bool = False, indents: int = 0) -> str:
         content = ''
         for line in lines:
@@ -35,7 +35,8 @@ class MdMaker:
         return content.strip('\n')
 
     def blockquote(self, quote: str) -> str:
-        return '> {}'.format(quote.strip())
+        prefix = '>{}' if quote.startswith('>') else '> {}'
+        return prefix.format(quote.strip())
 
     def multi_blockquotes(self, quotes: list, is_splitted: bool = False) -> str:
         content = ''
@@ -45,3 +46,34 @@ class MdMaker:
             content += self.blockquote(quote)
             content += separator
         return content[: -sep_len]
+
+    def lists(self, lists: dict, spaces: int = 0) -> str:
+        content = ''
+        if lists['is_ordered']:
+            line = 1
+            for l in lists['lists']:
+                if isinstance(l, dict):
+                    content += self.lists(l, spaces+4)
+                else:
+                    content += '\n{}{}{}{}'.format(
+                        ' ' * spaces, line, '. ', 'l')
+                    line += 1
+            return content.strip('\n')
+        else:
+            for l in lists['lists']:
+                if isinstance(l, dict):
+                    content += self.lists(l, spaces+4)
+                else:
+                    content += '\n{}{}{}'.format(' ' * spaces, '- ', l)
+            return content.strip('\n')
+
+    def lists_in_blockquotes(self, lists: dict, is_splitted: bool = False) -> str:
+        items = self.lists(lists).split('\n')
+        if is_splitted:
+            return self.multi_blockquotes(items)
+        else:
+            content = ''
+            for item in items:
+                content += self.blockquote(item)
+                content += '\n'
+            return content.strip('\n')
