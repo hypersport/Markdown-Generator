@@ -22,9 +22,9 @@ class Generator:
         self.content += '{}{}\n'.format(
             '\n' if self.content else '', paragraph)
 
-    def add_text(self, text: str, is_bold: bool = False,
-                 is_italic: bool = False, spaces: int = 1) -> None:
-        self.content += self.mdmaker.text(text, is_bold, is_italic, spaces)
+    # def add_text(self, text: str, is_bold: bool = False,
+    #              is_italic: bool = False, spaces: int = 1) -> None:
+    #     self.content += self.mdmaker.text(text, is_bold, is_italic, spaces)
 
     def add_line(self, line: str, is_bold: bool = False,
                  is_italic: bool = False, indents: int = 0) -> None:
@@ -61,3 +61,11 @@ class Generator:
         block_content = self.mdmaker.lists_in_blockquotes(lists, is_splitted)
         self.content += '{}{}\n'.format(
             '\n' if self.content else '', block_content)
+
+    # def add_code(self, code: str, spaces: int = 0) -> None:
+    #     self.content += self.mdmaker.code(code, spaces)
+
+    def add_code_blocks(self, codes: list[str], lang: str = '') -> None:
+        code_blocks = self.mdmaker.code_blocks(codes, lang)
+        self.content += '{}{}\n'.format(
+            '\n' if self.content else '', code_blocks)

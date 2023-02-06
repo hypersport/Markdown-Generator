@@ -79,3 +79,11 @@ class MdMaker:
                 content += self.blockquote(item)
                 content += '\n'
             return content.strip('\n')
+
+    def code(self, code: str, spaces: int = 0) -> str:
+        return '{}`{}`'.format(' ' * spaces, code.strip())
+
+    def code_blocks(self, codes: str, lang: str = '') -> str:
+        content = '```{}\n{}\n```'.format(
+            lang if lang else '', codes.strip('\n'))
+        return content
