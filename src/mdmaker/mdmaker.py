@@ -48,24 +48,26 @@ class MdMaker:
         return content[: -sep_len]
 
     def lists(self, lists: dict, spaces: int = 0) -> str:
-        content = ''
-        if lists['is_ordered']:
-            line = 1
-            for l in lists['lists']:
-                if isinstance(l, dict):
-                    content += self.lists(l, spaces+4)
-                else:
-                    content += '\n{}{}{}{}'.format(
-                        ' ' * spaces, line, '. ', 'l')
-                    line += 1
-            return content.strip('\n')
-        else:
-            for l in lists['lists']:
-                if isinstance(l, dict):
-                    content += self.lists(l, spaces+4)
-                else:
-                    content += '\n{}{}{}'.format(' ' * spaces, '- ', l)
-            return content.strip('\n')
+        def _lists(lists: dict, spaces: int = 0) -> str:
+            content = ''
+            if lists['is_ordered']:
+                line = 1
+                for l in lists['lists']:
+                    if isinstance(l, dict):
+                        content += _lists(l, spaces+4)
+                    else:
+                        content += '\n{}{}{}{}'.format(
+                            ' ' * spaces, line, '. ', l)
+                        line += 1
+                return content
+            else:
+                for l in lists['lists']:
+                    if isinstance(l, dict):
+                        content += _lists(l, spaces+4)
+                    else:
+                        content += '\n{}{}{}'.format(' ' * spaces, '- ', l)
+                return content
+        return _lists(lists, spaces).strip('\n')
 
     def lists_in_blockquotes(self, lists: dict, is_splitted: bool = False) -> str:
         items = self.lists(lists).split('\n')

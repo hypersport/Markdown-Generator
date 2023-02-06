@@ -2,7 +2,7 @@ import pytest
 from mdmaker import Generator
 
 
-def test_add_text(generator: Generator):
+def test_add_text(generator: Generator) -> None:
     content = ' Markdown'
     generator.add_text('Markdown')
     generator.save_file()
@@ -11,7 +11,7 @@ def test_add_text(generator: Generator):
     assert content == file_content
 
 
-def test_bold_text(generator: Generator):
+def test_bold_text(generator: Generator) -> None:
     content = ' **Markdown**'
     generator.add_text('Markdown', is_bold=True)
     generator.save_file()
@@ -20,7 +20,7 @@ def test_bold_text(generator: Generator):
     assert content == file_content
 
 
-def test_italic_text(generator: Generator):
+def test_italic_text(generator: Generator) -> None:
     content = ' *Markdown*'
     generator.add_text('Markdown', is_italic=True)
     generator.save_file()
@@ -29,7 +29,7 @@ def test_italic_text(generator: Generator):
     assert content == file_content
 
 
-def test_bold_italic_text(generator: Generator):
+def test_bold_italic_text(generator: Generator) -> None:
     content = ' ***Markdown***'
     generator.add_text('Markdown', is_bold=True, is_italic=True)
     generator.save_file()
@@ -38,7 +38,7 @@ def test_bold_italic_text(generator: Generator):
     assert content == file_content
 
 
-def test_mix_text(generator: Generator):
+def test_mix_text(generator: Generator) -> None:
     content = ' Normal **Bold** *Italic* ***Bold and Italic***'
     generator.add_text('Normal')
     generator.add_text('Bold', is_bold=True)
